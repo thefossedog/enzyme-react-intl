@@ -1,5 +1,9 @@
-require("./jsdomSetup.js");
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, intlShape } from 'react-intl';
+var jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+
+const { document } = (new JSDOM('')).window;
+global.document = document;
 
 import React from 'react';
 import chai, {expect, assert} from 'chai';
@@ -61,19 +65,19 @@ describe('enzymeReactIntl', function() {
             expect(messages).to.deep.equal(translations);
         });
     });
-    describe('shallowWithIntl', function() {
+    describe('mountWithIntl', function() {
         it('should have intl prop passed to the component', function () {
             loadTranslation('/test/testLanguageFile.json');
-            const wrapper = shallowWithIntl(<Test />);
+            const wrapper = mountWithIntl(<Test />);
             const p = wrapper.instance().props;
 
             expect(p).to.contain.key('intl');
         });
     });
-    describe('mountWithIntl', function() {
+    describe('shallowWithIntl', function() {
         it('should have intl prop passed to the component', function () {
             loadTranslation('/test/testLanguageFile.json');
-            const wrapper = mountWithIntl(<Test />);
+            const wrapper = shallowWithIntl(<Test />);
             const p = wrapper.instance().props;
 
             expect(p).to.contain.key('intl');

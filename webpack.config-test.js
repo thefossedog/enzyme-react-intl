@@ -13,7 +13,6 @@ module.exports = {
             'react/lib/ReactContext': true
         }
     ],
-    mode: 'production',
     module: {
         rules: [
             {
